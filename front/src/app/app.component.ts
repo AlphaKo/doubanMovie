@@ -9,7 +9,7 @@ import 'rxjs/operator/map';
 })
 export class AppComponent implements OnInit{
   headerStyle = false;
-  typeArr = ['top250', 'in_theaters', 'coming_soon'];
+  typeArr = ['top250'];
   ngOnInit() {
     Observable.fromEvent(window, 'scroll')
       .map(() => window.scrollY !== 0)
@@ -17,6 +17,8 @@ export class AppComponent implements OnInit{
       .subscribe((value) => {
         this.headerStyle = value;
       })
+      setTimeout(() => this.typeArr.push('in_theaters'), 500);
+      setTimeout(() => this.typeArr.push('coming_soon'), 1200);
   }
   
 
