@@ -1,0 +1,44 @@
+<div id='container'>
+  <h3>{{type | toCn}} </h3>
+  <div id='inside'>
+    <div id='lSide' (click)='toLeft()'>
+      <div id='lCursor'></div>
+    </div>
+    <div id='rSide' (click)='toRight()'>
+      <div id='rCursor'></div>
+    </div>
+    <article>
+      <div class='imgContainer' *ngFor='let movie of movies' (click)='show(movie)'>
+        <div class='shade' [class.shad]='movie !== nowMovie && showBoolean' [class.noshad]='!showBoolean'></div>
+        <img [src]='movie.images.large' [@fade]='a'>
+      </div>
+    </article>
+
+  </div>
+  <div id='bottomContainer' *ngIf='showBoolean' [@fade]='a'>
+    <div id='clo' (click)='showBoolean=false'>×</div>
+    <div id='bottomInside' *ngIf='main' [@fade]='a'>
+      <div id='imgC'>
+        <img [src]='p.avatars.medium' *ngFor='let p of nowMovie.casts'><br>
+        <img class='directors' [src]='p.avatars.medium' *ngFor='let p of nowMovie.directors'>
+      </div>
+      <br>
+      <h4>
+        {{nowMovie.title}}
+      </h4>
+      <br><br>
+      <p><span>评分：</span><span>{{nowMovie.rating.average}} </span></p><br>
+      <p><span>演员：</span><span *ngFor='let p of nowMovie.casts'>{{p.name}} </span></p><br>
+      <p><span>导演：</span><span *ngFor='let p of nowMovie.directors'>{{p.name}} </span></p><br>
+      <p><span>类型：</span><span *ngFor='let p of nowMovie.genres'>{{p}} </span></p><br><br><br>
+      <p><a [href]='nowMovie.alt' target='_blank'>豆瓣链接</a></p>
+    </div>
+    <p class='center' *ngIf='showYears' [@fade]='a'>{{nowMovie.year}}</p>
+    <p class='center' *ngIf='oTitle' [@fade]='a'>{{nowMovie.original_title}}</p>
+    <footer>
+      <span (mouseover)='main=true; showYears=false; oTitle=false;' [class.border]='main'>主页</span>&nbsp;
+      <span (mouseover)='showYears=true; oTitle=false; main=false;' [class.border]='showYears'>年份</span>&nbsp;
+      <span (mouseover)='oTitle=true; showYears=false; main=false' [class.border]='oTitle'>原名</span>
+    </footer>
+  </div>
+</div>
