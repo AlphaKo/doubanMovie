@@ -7,8 +7,13 @@ const fs = require('mz/fs');
 
 const path = require('path');
 
+const compress = require('koa-compress');
 const app = new Koa();
-
+app.use(compress(
+    {
+        threshold: 2048,
+    }
+));
 // parse user from cookie:
 app.use(async (ctx, next) => {
     //ctx.state.user = parseUser(ctx.cookies.get('name') || '');
